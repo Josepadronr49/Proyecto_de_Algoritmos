@@ -1,4 +1,5 @@
 
+#Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
     def start(self):
         print("Sea bienvenido a la Metropedia de Star Wars")
@@ -8,7 +9,7 @@ Ingrese una opción:
 1- Lista de películas
 2- Lista de especies de seres vivos de la saga 
 3- Lista de planetas
-4-Buscar personaje
+4- Buscar personaje
 5- Ver gráfico de cantidad de personajes nacidos en cada planeta 
 6- Naves
 7- Misiones
