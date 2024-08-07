@@ -1,3 +1,4 @@
 
 class StarWarsMetropedia:
-    None
+    def start(self):
+        None
