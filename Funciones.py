@@ -12,5 +12,6 @@ def cargar_informacion(link,lista_de_informacion):
         pagina_actual=cargar_API(pagina_actual["next"])
     else:
         lista_de_informacion.append(pagina_actual["results"])
+    return lista_de_informacion
         
         
