@@ -3,8 +3,10 @@ from Pelicula import Pelicula
 
 #Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
+    #Se crean listas en las que estarán los datos covertidos en objetos
     pelicula_obj=[]
 
+    #Se crea una función que iniciará el programa con todas las opciones requeridas
     def start(self):
         print("¡Sea bienvenido a la Metropedia de Star Wars!")
         while True:
@@ -46,7 +48,7 @@ Ingrese una opción:
 
             elif menu=="9":
                 break
-        print("¡Hasta luego!")
+        print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
 
 
 #Se crea una función para la primera opción del menú de la lista de planetas
