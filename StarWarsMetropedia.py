@@ -1,4 +1,4 @@
-from Funciones import cargar_API
+from Funciones import cargar_API, cargar_informacion
 from Pelicula import Pelicula
 
 #Se crea una clase en la que va a estar el código del menú del programa
@@ -8,6 +8,8 @@ class StarWarsMetropedia:
 
     #Se crea una función que iniciará el programa con todas las opciones requeridas
     def start(self):
+        self.convertir_peliculas()
+        
         print("¡Sea bienvenido a la Metropedia de Star Wars!")
         while True:
             menu=input("""
@@ -52,13 +54,15 @@ Ingrese una opción:
 
 
 #Se crea una función para la primera opción del menú de la lista de planetas
-    def mostrar_lista_peliculas(self):
+    def convertir_peliculas(self):
         db_peliculas=cargar_API("https://www.swapi.tech/api/films")
         peliculas=db_peliculas["result"]
         for pelicula in peliculas:
             pelicula_propiedades=pelicula["properties"]
             self.pelicula_obj.append(Pelicula(pelicula_propiedades["title"],pelicula_propiedades["episode_id"],pelicula_propiedades["release_date"],pelicula_propiedades["opening_crawl"],pelicula_propiedades["director"]))
-            lista_ordenada=sorted(self.pelicula_obj, key=lambda x: x.numero_episodio)
+            
+    def mostrar_lista_peliculas(self): 
+        lista_ordenada=sorted(self.pelicula_obj, key=lambda x: x.numero_episodio)
         for peli in lista_ordenada:
             peli.mostrar_pelicula()
 

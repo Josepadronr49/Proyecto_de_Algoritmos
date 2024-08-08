@@ -13,4 +13,5 @@ class Pelicula:
         print(f"c-Fecha de Lanzamiento: {self.fecha_lanzamiento}")
         print(f"d-Texto de Inicio: {self.texto_inicio}")
         print(f"e-Director: {self.director}")
+        print()
         

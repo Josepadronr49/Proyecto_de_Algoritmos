@@ -21,7 +21,7 @@ def cargar_informacion(link):
 personaje_informacion=cargar_informacion("https://swapi.dev/api/people/?format=json")
 for personajes in personaje_informacion:
     for personaje in personajes:
-        None
+        personaje_obj.append(Personaje(personaje["name"],personaje["name"],personaje["name"],personaje["name"],personaje["name"],personaje["name"],personaje["name"]))
 
 
 
