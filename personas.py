@@ -6,6 +6,18 @@ def initial_data_base(link):
 
 personaje_obj=[]
 
-#def buscar_personaje
-db_personaje=initial_data_base("https://www.swapi.tech/api/people?page=2&limit=10000")
-personajes=db_personaje["results"]
+def buscar_personaje():
+    db_personaje=initial_data_base("https://www.swapi.tech/api/people?page=2&limit=10000")
+    personajes=db_personaje["results"]
+    for personaje in personajes:
+        caracteristicas_personajes=personaje["url"]
+        caracteristicas_personajes_db=initial_data_base(caracteristicas_personajes)
+        caracteristicas=caracteristicas_personajes_db["results"]
+        personaje_obj.append(Personaje(caracteristicas["name"],caracteristicas["name"],caracteristicas["name"],caracteristicas["name"],caracteristicas["name"],caracteristicas["name"],caracteristicas["name"]))
+        #print(personaje_caracteristicas_db)
+        #print(personaje_caracteristica)
+        #personaje_caracteristica=initial_data_base("https://www.swapi.tech/api/people/uid")
+        #print(personaje_caracteristica)
+        #personaje_obj.append(Personaje(personaje_caracteristica["name"],personaje_caracteristica["name"],personaje_caracteristica["name"],personaje_caracteristica["name"],personaje_caracteristica["name"],personaje_caracteristica["name"],personaje_caracteristica["name"]))
+        
+buscar_personaje()
