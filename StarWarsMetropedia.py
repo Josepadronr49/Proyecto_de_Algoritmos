@@ -56,7 +56,8 @@ Ingrese una opción:
         for pelicula in peliculas:
             pelicula_propiedades=pelicula["properties"]
             self.pelicula_obj.append(Pelicula(pelicula_propiedades["title"],pelicula_propiedades["episode_id"],pelicula_propiedades["release_date"],pelicula_propiedades["opening_crawl"],pelicula_propiedades["director"]))
-        for peli in self.pelicula_obj:
+            lista_ordenada=sorted(self.pelicula_obj, key=lambda x: x.numero_episodio)
+        for peli in lista_ordenada:
             peli.mostrar_pelicula()
 
       
