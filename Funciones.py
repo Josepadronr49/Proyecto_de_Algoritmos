@@ -4,7 +4,7 @@ def cargar_API(link):
     return informacion
 
 
-def cargar_informacion(link,lista_de_informacion):
+def cargar_informacion(link):
     lista_de_informacion=[]
     pagina_actual=cargar_API(link)
     while pagina_actual["next"]!=None:
