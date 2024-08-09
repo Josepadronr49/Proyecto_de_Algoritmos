@@ -1,6 +1,8 @@
 import requests as rq
 def cargar_API(link):
-    informacion=rq.get(link).json()
+    if link==None:
+        informacion='Desconocido'
+    else:informacion=rq.get(link).json()
     return informacion
 
 
