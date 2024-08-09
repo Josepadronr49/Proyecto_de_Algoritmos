@@ -46,7 +46,7 @@ Ingrese una opción:
 
             elif menu=="9":
                 break
-        print("¡Hasta luego!")
+        print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
 
 
 #Se crean todas las funciones que ejecutarán las acciones de cada opción del menú
