@@ -17,7 +17,7 @@ class StarWarsMetropedia:
         self.convertir_peliculas()
         #Función de especies
         #Función de planetas
-        self.convertir_personajes()
+        #self.convertir_personajes()
         
         print("¡Sea bienvenido a la Metropedia de Star Wars!")
         while True:
@@ -103,11 +103,11 @@ Ingrese una opción:
                     lista_vehiculos.append(cada_vehiculo["name"])
             self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
-    def buscar_personaje(self):
+    """def buscar_personaje(self):
         personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
         for personaje in self.personaje_obj:
             if personaje_buscar in personaje.nombre:
                 personaje.mostrar_personaje()
             else:
-                print("No se han encontrado resultados")
+                print("No se han encontrado resultados")"""
 

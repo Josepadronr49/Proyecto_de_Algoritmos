@@ -39,6 +39,20 @@ for personajes in personaje_informacion:
             lista_vehiculos.append(cada_vehiculo["name"])
         personaje_obj.append(Personaje(personaje["name"],initial_data_base(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
+print("""Igrese la opción que desee:
+1-Buscar personaje
+2-Volver buscar personaje
+3-Salir
+""")
+
+personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
+contador=0
+for personaje in personaje_obj:
+    if personaje_buscar in personaje.nombre:
+        personaje.mostrar_personaje()
+        contador+=1
+if contador==0:
+    print("No se encontraron resultados")
 
 
 
