@@ -49,14 +49,20 @@ Ingrese una opción:
         print("¡Hasta luego!")
 
 
-#Se crea una función para la primera opción del menú de la lista de planetas
-    def mostrar_lista_peliculas(self):
+#Se crean todas las funciones que ejecutarán las acciones de cada opción del menú
+#Se crea una función para convertir las peliculas en objetos
+    def convertir_peliculas(self):
         db_peliculas=cargar_API("https://www.swapi.tech/api/films")
         peliculas=db_peliculas["result"]
         for pelicula in peliculas:
             pelicula_propiedades=pelicula["properties"]
             self.pelicula_obj.append(Pelicula(pelicula_propiedades["title"],pelicula_propiedades["episode_id"],pelicula_propiedades["release_date"],pelicula_propiedades["opening_crawl"],pelicula_propiedades["director"]))
-        for peli in self.pelicula_obj:
+
+#Se crea una función que permita mostrar las películas en la primera opción del menú            
+    def mostrar_lista_peliculas(self): 
+        #Se ordena la lista por número de episodio y se usa una función para mostrar la lista de películas
+        lista_ordenada=sorted(self.pelicula_obj, key=lambda x: x.numero_episodio)
+        for peli in lista_ordenada:
             peli.mostrar_pelicula()
 
       
