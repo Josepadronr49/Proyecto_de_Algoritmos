@@ -37,7 +37,7 @@ Ingrese una opción:
                 self.mostrar_lista_peliculas()
 
             elif menu=="2":
-            self.mostrar_especies()
+                self.mostrar_especies()
 
             elif menu=="3":
                 self.mostrar_planetas()
@@ -108,6 +108,7 @@ Ingrese una opción:
         for personaje in self.personaje_obj:
             if personaje_buscar in personaje.nombre:
                 personaje.mostrar_personaje()
+    
     def mostrar_especies(self):
         db_especies=cargar_informacion('https://swapi.dev/api/species/?format=json')
         for especies in db_especies:
