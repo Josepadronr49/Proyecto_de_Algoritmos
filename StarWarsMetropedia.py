@@ -1,11 +1,24 @@
-from Funciones import cargar_API
+from Funciones import cargar_API, cargar_informacion
 from Pelicula import Pelicula
+
+
+from Personaje import Personaje
 
 #Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
+    #Se crean listas en las que estarán los datos covertidos en objetos
     pelicula_obj=[]
+   
 
+    personaje_obj=[]
+
+    #Se crea una función que iniciará el programa con todas las opciones requeridas
     def start(self):
+        self.convertir_peliculas()
+        #Función de especies
+        #Función de planetas
+        #self.convertir_personajes()
+        
         print("¡Sea bienvenido a la Metropedia de Star Wars!")
         while True:
             menu=input("""
@@ -30,7 +43,7 @@ Ingrese una opción:
                 None
 
             elif menu=="4":
-                None
+                None #self.buscar_personaje()
 
             elif menu=="5":
                 None
@@ -65,4 +78,34 @@ Ingrese una opción:
         for peli in lista_ordenada:
             peli.mostrar_pelicula()
 
-      
+    def convertir_personajes(self):
+        #Se utiliza la función para guardar en una lista toda la información de los personajes
+        db_personajes=cargar_informacion("https://swapi.dev/api/people/?format=json")  
+        #Recorremos la lista dentro de la lista
+        for personajes in db_personajes:
+            for personaje in personajes:
+                #Se realizan varios "for" para acceder a información de los personajes que dentro tiene listas y se debe acceder a un link
+                lista_peliculas=[]
+                for pelicula in personaje["films"]:
+                    cada_pelicula=cargar_API(pelicula)
+                    lista_peliculas.append(cada_pelicula["title"])
+                lista_especies=[]
+                for especie in personaje["species"]:
+                    cada_especie=cargar_API(especie)
+                    lista_especies.append(cada_especie["name"])
+                lista_naves=[]
+                for nave in personaje["starships"]:
+                    cada_nave=cargar_API(nave)
+                    lista_naves.append(cada_nave)
+                lista_vehiculos=[]
+                for vehiculo in personaje["vehicles"]:
+                    cada_vehiculo=cargar_API(vehiculo)
+                    lista_vehiculos.append(cada_vehiculo["name"])
+            self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
+
+    def buscar_personaje(self):
+        personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
+        for personaje in self.personaje_obj:
+            if personaje_buscar in personaje.nombre:
+                personaje.mostrar_personaje()
+
