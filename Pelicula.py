@@ -8,9 +8,10 @@ class Pelicula:
         self.director=director
 
     def mostrar_pelicula(self):
-        print(f"Título: {self.titulo}")
-        print(f"Número del episodio: {self.numero_episodio}")
-        print(f"Fecha de Lanzamiento: {self.fecha_lanzamiento}")
-        print(f"Texto de Inicio: {self.texto_inicio}")
-        print(f"Director: {self.director}")
+        print(f"a-Título: {self.titulo}")
+        print(f"b-Número del episodio: {self.numero_episodio}")
+        print(f"c-Fecha de Lanzamiento: {self.fecha_lanzamiento}")
+        print(f"d-Texto de Inicio: {self.texto_inicio}")
+        print(f"e-Director: {self.director}")
+        print()
         
