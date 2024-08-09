@@ -43,7 +43,7 @@ Ingrese una opción:
                 None
 
             elif menu=="4":
-                self.buscar_personaje()
+                None #self.buscar_personaje()
 
             elif menu=="5":
                 None
