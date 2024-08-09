@@ -8,8 +8,8 @@ from Personaje import Personaje
 class StarWarsMetropedia:
     #Se crean listas en las que estarán los datos covertidos en objetos
     pelicula_obj=[]
-    #Lista de especies
-    #Lista de planetas
+   
+
     personaje_obj=[]
 
     #Se crea una función que iniciará el programa con todas las opciones requeridas
@@ -43,7 +43,7 @@ Ingrese una opción:
                 None
 
             elif menu=="4":
-                None
+                self.buscar_personaje()
 
             elif menu=="5":
                 None
@@ -62,6 +62,7 @@ Ingrese una opción:
         print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
 
 
+#Se crean todas las funciones que ejecutarán las acciones de cada opción del menú
 #Se crea una función para convertir las peliculas en objetos
     def convertir_peliculas(self):
         db_peliculas=cargar_API("https://www.swapi.tech/api/films")
@@ -101,3 +102,12 @@ Ingrese una opción:
                     cada_vehiculo=cargar_API(vehiculo)
                     lista_vehiculos.append(cada_vehiculo["name"])
             self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
+
+    def buscar_personaje(self):
+        personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
+        for personaje in self.personaje_obj:
+            if personaje_buscar in personaje.nombre:
+                personaje.mostrar_personaje()
+            else:
+                print("No se han encontrado resultados")
+
