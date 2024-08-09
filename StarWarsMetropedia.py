@@ -1,15 +1,15 @@
 from Funciones import cargar_API, cargar_informacion
 from Pelicula import Pelicula
-
-
+from Especies import Especies
+from Planetas import Planetas
 from Personaje import Personaje
 
 #Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
     #Se crean listas en las que estarán los datos covertidos en objetos
     pelicula_obj=[]
-   
-
+    especies_obj=[]
+    planetas_obj=[]
     personaje_obj=[]
 
     #Se crea una función que iniciará el programa con todas las opciones requeridas
@@ -37,10 +37,10 @@ Ingrese una opción:
                 self.mostrar_lista_peliculas()
 
             elif menu=="2":
-                None
+            self.mostrar_especies()
 
             elif menu=="3":
-                None
+                self.mostrar_planetas()
 
             elif menu=="4":
                 None #self.buscar_personaje()
@@ -108,4 +108,36 @@ Ingrese una opción:
         for personaje in self.personaje_obj:
             if personaje_buscar in personaje.nombre:
                 personaje.mostrar_personaje()
+    def mostrar_especies(self):
+        db_especies=cargar_informacion('https://swapi.dev/api/species/?format=json')
+        for especies in db_especies:
+            for especie in especies:
+                lista_personajes=[]
+                lista_peliculas=[]
+                for personaje in especie["people"]:
+                    cada_personaje=cargar_API(personaje)
+                    lista_personajes.append(cada_personaje["name"])
+                for peliculas in especie['films']:
+                    cada_pelicula=cargar_API(peliculas)
+                    lista_peliculas.append(cada_pelicula['title'])      
+                self.especies_obj.append(Especies(especie['name'],especie['average_height'],especie['classification'],cargar_API(especie["homeworld"])['name'],especie['language'],lista_personajes,lista_peliculas)) #Conversion de los objetos a clase Especie
+        for clase_planeta in self.especies_obj:
+            clase_planeta.mostrar_especies()
+    
+    def mostrar_planetas(self):
+        db_planetas=cargar_informacion('https://swapi.dev/api/planets/?format=json') #Recorrer toda la base de datos del api y devolverlo como un json
+        for planetas in db_planetas:
+            for planeta in planetas:
+                lista_episodios=[]
+                for episodio in planeta["films"]: #Recorre la lista de las peliculas
+                    cada_episodio=cargar_API(episodio)
+                    lista_episodios.append(cada_episodio["title"]) #Busca los nombre de cada pelicula
+                personajes_en_episodio=[]
+                for personaje in planeta['residents']: #Recorre la lista de los personajes del planeta
+                    cada_personaje=cargar_API(personaje)
+                    personajes_en_episodio.append(cada_personaje['name']) #Les encuentra los nombre de cada personaje del planeta
+                self.planetas_obj.append(Planetas(planeta['name'],planeta['orbital_period'],planeta['rotation_period'],planeta['population'],planeta['climate'],lista_episodios,personajes_en_episodio)) #Se convirtio a un objeto clase Planeta
+        for clase_planeta in self.planetas_obj:
+            clase_planeta.mostrar_planeta() 
+
 
