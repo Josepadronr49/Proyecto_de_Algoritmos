@@ -10,10 +10,11 @@ class Personaje:
         self.vehiculos=vehiculos
 
     def mostrar_personaje(self):
-        print(f"Nombre del Personaje: {self.nombre}")
-        print(f"Número del episodio: {self.planeta}")
-        print(f"Título de episodio en el que aparece: {self.titulo_episodio}")
-        print(f"Género: {self.genero}")
-        print(f"Especie: {self.especie}")  
-        print(f"Naves: {self.naves}") 
-        print(f"Vehículos: {self.vehiculos}") 
+        print(f"a-Nombre del Personaje: {self.nombre}")
+        print(f"b-Número del episodio: {self.planeta}")
+        print(f"c-Título de episodio en el que aparece: {self.titulo_episodio}")
+        print(f"d-Género: {self.genero}")
+        print(f"e-Especie: {self.especie}")  
+        print(f"f-Naves: {self.naves}") 
+        print(f"g-Vehículos: {self.vehiculos}")
+        print()

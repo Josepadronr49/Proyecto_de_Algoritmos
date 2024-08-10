@@ -15,9 +15,7 @@ class StarWarsMetropedia:
     #Se crea una función que iniciará el programa con todas las opciones requeridas
     def start(self):
         self.convertir_peliculas()
-        #Función de especies
-        #Función de planetas
-        #self.convertir_personajes()
+        self.convertir_personajes()
         
         print("¡Sea bienvenido a la Metropedia de Star Wars!")
         while True:
@@ -30,20 +28,20 @@ Ingrese una opción:
 5- Ver gráfico de cantidad de personajes nacidos en cada planeta 
 6- Naves
 7- Misiones
-8- Volver al menú
-9-Salir
+8- Volver a mostrar el menú
+9- Salir
 --->""")
             if menu=="1":
-                self.mostrar_lista_peliculas()
+                self.mostrar_lista_peliculas() #La primera función mostrará la lista de películas de la saga
 
             elif menu=="2":
-                self.mostrar_especies()
+                self.mostrar_especies() #La segunda opción mostrará la lista las especies de la saga
 
             elif menu=="3":
-                self.mostrar_planetas()
+                self.mostrar_planetas() #La tercera opción mostrará la lista de planetas de la saga
 
             elif menu=="4":
-                None #self.buscar_personaje()
+                self.buscar_personaje() #La cuarta opción funcionará como un buscador de personajes
 
             elif menu=="5":
                 None
@@ -78,6 +76,7 @@ Ingrese una opción:
         for peli in lista_ordenada:
             peli.mostrar_pelicula()
 
+#Se crea la función para convertir la información de la Api a objeto y guardarla como objeto en una lista
     def convertir_personajes(self):
         #Se utiliza la función para guardar en una lista toda la información de los personajes
         db_personajes=cargar_informacion("https://swapi.dev/api/people/?format=json")  
@@ -104,10 +103,27 @@ Ingrese una opción:
             self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
     def buscar_personaje(self):
-        personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
-        for personaje in self.personaje_obj:
-            if personaje_buscar in personaje.nombre:
-                personaje.mostrar_personaje()
+        #Para buscar a los personajes se crea un sub-menú
+        while True:
+            opcion=input(
+"""Ingrese la opción que desee:
+1-Buscar personaje
+2-Salir
+--->""")
+            if opcion=="1": 
+                personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
+                contador=0
+                for personaje in self.personaje_obj:
+                    if personaje_buscar in personaje.nombre: #Se buscan los caracteres en los nombres de los personajes para buscar coincidencias
+                        personaje.mostrar_personaje() #Si se encuentran coincidencia se muestran los personajes
+                        contador+=1
+                if contador==0:
+                    print("No se encontraron resultados") #Si no hay coincidencias se muestra que el sistema no pudo encontrar resultados 
+                    #Se podrá buscar personajes hasta que el usuario decida salir
+            elif opcion=="2":
+                break
+            else:
+                print("Ingrese una opción válida")
     
     def mostrar_especies(self):
         db_especies=cargar_informacion('https://swapi.dev/api/species/?format=json')
