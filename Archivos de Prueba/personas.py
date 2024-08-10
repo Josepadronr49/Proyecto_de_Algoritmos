@@ -1,4 +1,4 @@
-from Personaje import Personaje
+#from Personaje import Personaje
 import requests 
 def initial_data_base(link):
     resp=requests.get(link)
@@ -37,7 +37,7 @@ for personajes in personaje_informacion:
         for vehiculo in personaje["vehicles"]:
             cada_vehiculo=initial_data_base(vehiculo)
             lista_vehiculos.append(cada_vehiculo["name"])
-        personaje_obj.append(Personaje(personaje["name"],initial_data_base(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
+        personaje_obj.append("Personaje"(personaje["name"],initial_data_base(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
 while True:
     opcion=input("""Igrese la opción que desee:
