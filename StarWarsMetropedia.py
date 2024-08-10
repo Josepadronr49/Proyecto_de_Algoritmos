@@ -49,7 +49,7 @@ Ingrese una opción:
                 self.crear_grafico_comparacion_personajes_planeta() #La quinta opción mostrará el gráfico para comparar personajes nacidos en cada planeta
 
             elif menu=="6":
-                None
+                self.crear_grafico_comparacion_caracteristicas_naves() #La sexta opcion mostrará en un gráfico las características de las naves 
 
             elif menu=="7":
                 None
@@ -178,3 +178,54 @@ Ingrese una opción:
         ptl.tight_layout()
         ptl.show()
 
+    def crear_grafico_comparacion_caracteristicas_naves(self):
+        #Se accede a la base de datos
+        db_archivo_naves = pd.read_csv('csv/starships.csv')
+        while True:
+            option = input("1- Longitud de nave\n2- Capacidad de carga\n3- Clasificación de hiperimpulsor\n4- Clasificación de hiperimpulsor\n5- Salir\n--->")
+            if option =="1":
+            # Crear gráficos comparativos
+             # 1. Longitud de la nave
+                ptl.figure(figsize=(12, 6))
+                ptl.bar(db_archivo_naves['name'], db_archivo_naves['length'], color='Blue')
+                ptl.xlabel('Nave')
+                ptl.ylabel('Longitud (m)')
+                ptl.title('Longitud de las Naves Espaciales')
+                ptl.xticks(rotation=90)
+                ptl.tight_layout()
+                ptl.show()
+            elif option =="2":
+                ptl.figure(figsize=(12, 6))
+                ptl.bar(db_archivo_naves['name'], db_archivo_naves['cargo_capacity'], color=['Orange','Yellow','Red'])
+                ptl.xlabel('Nave')
+                ptl.ylabel('Capacidad de Carga (kg)')
+                ptl.title('Capacidad de Carga de las Naves Espaciales')
+                ptl.xticks(rotation=90)
+                ptl.tight_layout()
+                ptl.show()
+            elif option =="3":
+            # 3. Clasificación de hiperimpulsor
+                ptl.figure(figsize=(12, 6))
+                ptl.bar(db_archivo_naves['name'], db_archivo_naves['hyperdrive_rating'], color='coral')
+                ptl.xlabel('Nave')
+                ptl.ylabel('Clasificación de Hiperimpulsor')
+                ptl.title('Clasificación de Hiperimpulsor de las Naves Espaciales')
+                ptl.xticks(rotation=90)
+                ptl.tight_layout()
+                ptl.show()
+
+            elif option =="4":
+             # 4. MGLT (Modern Galactic Light Time)
+                ptl.figure(figsize=(12, 6))
+                ptl.bar(db_archivo_naves['name'], db_archivo_naves['MGLT'], color='purple')
+                ptl.xlabel('Nave')
+                ptl.ylabel('MGLT')
+                ptl.title('MGLT de las Naves Espaciales')
+                ptl.xticks(rotation=90)
+                ptl.tight_layout()
+                ptl.show()
+
+            elif option =="5":
+                print ("Nos vemos")
+                break
+            
