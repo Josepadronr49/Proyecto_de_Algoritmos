@@ -3,6 +3,8 @@ from Pelicula import Pelicula
 from Especies import Especies
 from Planetas import Planetas
 from Personaje import Personaje
+import pandas as pd
+import matplotlib.pyplot as ptl
 
 #Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
@@ -157,4 +159,7 @@ Ingrese una opción:
         for clase_planeta in self.planetas_obj:
             clase_planeta.mostrar_planeta() 
 
+    #Se crea una función para poder hacer el gráfico que compare los personajes por planeta, obteniendo información de un archivo csv
+    def crear_grafico_comparacion_personajes_planeta(self):
+        None
 
