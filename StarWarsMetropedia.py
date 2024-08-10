@@ -1,6 +1,6 @@
 from Funciones import cargar_API, cargar_informacion
 from Pelicula import Pelicula
-
+from Mision import Mision
 
 from Personaje import Personaje
 
@@ -108,4 +108,8 @@ Ingrese una opción:
         for personaje in self.personaje_obj:
             if personaje_buscar in personaje.nombre:
                 personaje.mostrar_personaje()
+
+
+
+    
 
