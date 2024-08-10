@@ -46,7 +46,7 @@ Ingrese una opción:
                 self.buscar_personaje() #La cuarta opción funcionará como un buscador de personajes
 
             elif menu=="5":
-                None
+                self.crear_grafico_comparacion_personajes_planeta() #La quinta opción mostrará el gráfico para comparar personajes nacidos en cada planeta
 
             elif menu=="6":
                 None
@@ -161,5 +161,20 @@ Ingrese una opción:
 
     #Se crea una función para poder hacer el gráfico que compare los personajes por planeta, obteniendo información de un archivo csv
     def crear_grafico_comparacion_personajes_planeta(self):
-        None
+        #Se accede al archivo utilizando la librería pandas
+        db_archivo_planeta= pd.read_csv("csv/planets.csv")
+        db_archivo_planeta["residents"]=db_archivo_planeta["residents"].fillna("") #Reemplaza el NaN por una cadena vacía
+        db_archivo_planeta["residents"]=db_archivo_planeta["residents"].apply(lambda x: len(x.split(",")) if x else 0) #Para contar a los personajes del planeta
+        print(db_archivo_planeta[["name","residents"]].head()) #Para verificar los datos
+
+        #Con las funciones de la librería matplotlib se puede crear un gráfico
+        #Se escoge un gráfico de barras para que la comparación sea más cómoda a nivel visual
+        ptl.figure(figsize=(12,8))
+        ptl.bar(db_archivo_planeta["name"],db_archivo_planeta["residents"], color=["deeppink","hotpink","fuchsia","violet"])
+        ptl.title("Cantidad de personajes nacidos en cada planeta") #Se escoge el título del gráfico
+        ptl.xlabel("Planetas") #Leyenda del eje "x"
+        ptl.ylabel("Cantidad de personajes nacidos") #Leyenda del eje "y"
+        ptl.xticks(rotation=45)
+        ptl.tight_layout()
+        ptl.show()
 
