@@ -54,11 +54,12 @@ Ingrese una opción:
                 None
 
             elif menu=="8":
+                print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
                 break
 
             else:
                 print("Opción no válida. Por favor, vuelva a intentarlo.")
-        print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
+            
 
 
 #Se crean todas las funciones que ejecutarán las acciones de cada opción del menú
@@ -259,4 +260,6 @@ Ingrese una opción:
             elif mini_menu=='3':
                 break
             else: print('Ingrese una opción válida')
+
+    
             
