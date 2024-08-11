@@ -1,5 +1,23 @@
 #from Personaje import Personaje
 import requests 
+class Personaje: 
+    def __init__(self,nombre, planeta, titulo_episodio, genero, especie, naves, vehiculos):
+        self.nombre=nombre
+        self.planeta=planeta
+        self.titulo_episodio=titulo_episodio
+        self.genero=genero
+        self.especie=especie
+        self.naves=naves
+        self.vehiculos=vehiculos
+
+    def mostrar_personaje(self):
+        print(f"Nombre del Personaje: {self.nombre}")
+        print(f"Número del episodio: {self.planeta}")
+        print(f"Título de episodio en el que aparece: {self.titulo_episodio}")
+        print(f"Género: {self.genero}")
+        print(f"Especie: {self.especie}")  
+        print(f"Naves: {self.naves}") 
+        print(f"Vehículos: {self.vehiculos}") 
 def initial_data_base(link):
     resp=requests.get(link)
     return resp.json()
@@ -37,7 +55,7 @@ for personajes in personaje_informacion:
         for vehiculo in personaje["vehicles"]:
             cada_vehiculo=initial_data_base(vehiculo)
             lista_vehiculos.append(cada_vehiculo["name"])
-        personaje_obj.append("Personaje"(personaje["name"],initial_data_base(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
+        personaje_obj.append(Personaje(personaje["name"],initial_data_base(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
 while True:
     opcion=input("""Igrese la opción que desee:
