@@ -66,7 +66,7 @@ while True:
         personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
         contador=0
         for personaje in personaje_obj:
-            if personaje_buscar in personaje.nombre:
+            if personaje_buscar.lower() in personaje.nombre.lower():
                 personaje.mostrar_personaje()
                 contador+=1
         if contador==0:
