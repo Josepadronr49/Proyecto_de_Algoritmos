@@ -97,12 +97,12 @@ Ingrese una opción:
                 lista_naves=[]
                 for nave in personaje["starships"]:
                     cada_nave=cargar_API(nave)
-                    lista_naves.append(cada_nave)
+                    lista_naves.append(cada_nave["name"])
                 lista_vehiculos=[]
                 for vehiculo in personaje["vehicles"]:
                     cada_vehiculo=cargar_API(vehiculo)
                     lista_vehiculos.append(cada_vehiculo["name"])
-            self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
+                self.personaje_obj.append(Personaje(personaje["name"],cargar_API(personaje["homeworld"])["name"],lista_peliculas,personaje["gender"],lista_especies,lista_naves,lista_vehiculos))
 
     def buscar_personaje(self):
         #Para buscar a los personajes se crea un sub-menú
