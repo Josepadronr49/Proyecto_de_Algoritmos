@@ -30,8 +30,7 @@ Ingrese una opción:
 5- Ver gráfico de cantidad de personajes nacidos en cada planeta 
 6- Naves
 7- Misiones
-8- Volver a mostrar el menú
-9- Salir
+8- Salir
 --->""")
             if menu=="1":
                 self.mostrar_lista_peliculas() #La primera función mostrará la lista de películas de la saga
@@ -49,16 +48,16 @@ Ingrese una opción:
                 self.crear_grafico_comparacion_personajes_planeta() #La quinta opción mostrará el gráfico para comparar personajes nacidos en cada planeta
 
             elif menu=="6":
-                self.crear_grafico_comparacion_caracteristicas_naves() #La sexta opcion mostrará en un gráfico las características de las naves 
+                self.opciones_nave() #La sexta opcion mostrará un menu que permitirá que el usuario vea la estadistica o los graficos de la informacion de las naves 
 
             elif menu=="7":
                 None
 
             elif menu=="8":
-                continue
-
-            elif menu=="9":
                 break
+
+            else:
+                print("Opción no válida. Por favor, vuelva a intentarlo.")
         print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
 
 
@@ -229,3 +228,35 @@ Ingrese una opción:
                 print ()
                 break
             else:  print("Ponga una opcion valida")          # Asegurar el funcionamiento del menu cuando se coloca opciones no validas.
+    
+    def crear_estadisticas_naves(self):
+        db_naves=pd.read_csv('csv/starships.csv',sep=",")
+
+
+        db_naves['hyperdrive_rating']=pd.to_numeric(db_naves['hyperdrive_rating'],errors='coerce')
+        db_naves['MGLT']=pd.to_numeric(db_naves['MGLT'],errors='coerce')
+        db_naves['max_atmosphering_speed']=pd.to_numeric(db_naves['max_atmosphering_speed'],errors='coerce')
+        db_naves['cost_in_credits']=pd.to_numeric(db_naves['cost_in_credits'],errors='coerce')
+
+        agrupado_por_clase=db_naves.groupby('starship_class')
+
+        print(f'Estadística de los costos\n{agrupado_por_clase['cost_in_credits'].describe()} \nmoda: \n{db_naves['cost_in_credits'].mode()}')
+        print()
+        print(f'Estadística de los hyperpropulsores\n{agrupado_por_clase['hyperdrive_rating'].describe()}\nmoda:\n{db_naves["hyperdrive_rating"].mode()}')
+        print()
+        print(f'Estadística de la máxima velocidad atmosférica\n{agrupado_por_clase['max_atmosphering_speed'].describe()}\nmoda:\n{db_naves['max_atmosphering_speed']}')
+        print()
+        print(f'Estadística de MGLT por clase\n{agrupado_por_clase['MGLT'].describe()}\nmoda:\n{db_naves['MGLT']}')
+        print()
+    
+    def opciones_nave(self):
+        while True:
+            mini_menu=input('Ingrese la opción de su preferencia:\n1-Mostrar gráficos de las características de las naves\n2-Estadística sobre las naves\n3-Salir')
+            if mini_menu=='1':
+                self.crear_grafico_comparacion_caracteristicas_naves()
+            elif mini_menu=='2':
+                self.crear_estadisticas_naves() 
+            elif mini_menu=='3':
+                break
+            else: print('Ingrese una opción válida')
+            
