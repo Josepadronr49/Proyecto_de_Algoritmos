@@ -1,3 +1,4 @@
+import pandas as pd
 class Mision:
     def __init__(self,nombre_mision, planeta_destino, nave, armas, integrantes):
         self.nombre_mision=nombre_mision
@@ -27,16 +28,32 @@ while True:
     if eleccion=="1":
         if len(mision_obj)<=5:
             nombre_de_la_mision=input("Ingrese el nombre de la misión: ")
+            planetas=[]
+            planeta_archivos=pd.read_csv("csv/planets.csv")
+            planetas.append(planeta_archivos["name"])
+            planetas.contadores_lista(planetas)
             planeta_destino_mision=input("Ingrese el planeta destino de la misión: ")
+            nave=[]
+            nave_archivos=pd.read_csv("csv/starships.csv")
+            nave.append(nave_archivos["name"])
+            nave.contadores_lista(nave)
             nave_mision=input("Ingrese la nave de la misión: ")
             armas_mision=[]
             integrantes_mision=[]
+            armas=[]
+            armas_archivos=pd.read_csv("csv/weapons.csv")
+            armas.append(armas_archivos["name"])
+            armas.contadores_lista(armas)
             while len(armas_mision)<=7:
                 arma=input("Ingrese el arma que desee utilizar: ")
                 if arma:
                     armas_mision.append(arma)
                 else:
                     break
+            integrantes=[]
+            integrantes_archivos=pd.read_csv("csv/characters.csv")
+            integrantes.append(integrantes_archivos["name"])
+            integrantes.contadores_lista(integrantes)
             while len(integrantes_mision)<=7:
                 integrante=input("Ingrese los integrantes de su misión: ")
                 if integrante:
@@ -138,4 +155,10 @@ def eliminar_integrante(integrante):
     else:
         print("El integrante que quiere eliminar no está en la lista")
 
+def contadores_lista(lista):
+    contador=1
+    for elemento in lista:
+        print(f"{contador}-{elemento}")
+        contador+=1
+    print(lista)
         
