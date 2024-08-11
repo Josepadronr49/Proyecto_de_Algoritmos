@@ -6,6 +6,7 @@ from Personaje import Personaje
 from Mision import Mision
 import pandas as pd
 import matplotlib.pyplot as ptl
+import json
 
 #Se crea una clase en la que va a estar el código del menú del programa
 class StarWarsMetropedia:
@@ -284,7 +285,8 @@ Ingrese la opción que desee:
             if sub_menu=="3":
                 self.guardar_misiones()
             if sub_menu=="5":
-                self.cargar_misiones()
+                archivo=input("Ingrese el nombre del archivo que desea cargar: ")
+                self.cargar_misiones(archivo)
             if sub_menu=="6":
                 break
             else:
@@ -429,8 +431,17 @@ Seleccione la característica de la misión que desee modificar:
     def guardar_misiones(self):
         None
 
-    def cargar_misiones(self):
-        None
+    #Se crea una función para cargar las misiones
+    def cargar_misiones(self,archivo):
+        try:
+            with open(archivo,"r") as info:
+                informacion_misiones= json.load(info)
+                self.mision_obj=[Mision(**m) for m in informacion_misiones]
+            print(f"Sus misiones han sido cargadas desde el archivo: {archivo}")
+        except FileNotFoundError: #Función de json por si el archivo no se encontró
+            print("El archivo que desea cargar no se ha encontrado")
+        except json.JSONDecodeError: #Por si hay errores la escritura del archivo
+            print("Hay un error al leer el archivo")
 
 
 
