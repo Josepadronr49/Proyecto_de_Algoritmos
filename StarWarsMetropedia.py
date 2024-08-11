@@ -182,7 +182,7 @@ Ingrese una opción:
         #Se accede a la base de datos
         db_archivo_naves = pd.read_csv('csv/starships.csv')
         while True:
-            option = input("1- Longitud de nave\n2- Capacidad de carga\n3- Clasificación de hiperimpulsor\n4- Clasificación de hiperimpulsor\n5- Salir\n--->")
+            option = input("1- Longitud de nave\n2- Capacidad de carga\n3- Clasificación de hiperimpulsor\n4- MGLT\n5- Salir\n--->")
             if option =="1":
             # Crear gráficos comparativos
              # 1. Longitud de la nave
@@ -252,7 +252,7 @@ Ingrese una opción:
     
     def opciones_nave(self):
         while True:
-            mini_menu=input('Ingrese la opción de su preferencia:\n1-Mostrar gráficos de las características de las naves\n2-Estadística sobre las naves\n3-Salir')
+            mini_menu=input('Ingrese la opción de su preferencia:\n1-Mostrar gráficos de las características de las naves\n2-Estadística sobre las naves\n3-Salir\n-->')
             if mini_menu=='1':
                 self.crear_grafico_comparacion_caracteristicas_naves()
             elif mini_menu=='2':
