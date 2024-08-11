@@ -226,6 +226,6 @@ Ingrese una opción:
                 ptl.show()
 
             elif option =="5":
-                print ("Nos vemos")
+                print ()
                 break
-            
+            else:  print("Ponga una opcion valida")          # Asegurar el funcionamiento del menu cuando se coloca opciones no validas.
