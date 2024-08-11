@@ -3,6 +3,7 @@ from Pelicula import Pelicula
 from Especies import Especies
 from Planetas import Planetas
 from Personaje import Personaje
+from Mision import Mision
 import pandas as pd
 import matplotlib.pyplot as ptl
 
@@ -13,6 +14,7 @@ class StarWarsMetropedia:
     especies_obj=[]
     planetas_obj=[]
     personaje_obj=[]
+    mision_obj=[]
 
     #Se crea una función que iniciará el programa con todas las opciones requeridas
     def start(self):
@@ -48,10 +50,10 @@ Ingrese una opción:
                 self.crear_grafico_comparacion_personajes_planeta() #La quinta opción mostrará el gráfico para comparar personajes nacidos en cada planeta
 
             elif menu=="6":
-                self.opciones_nave() #La sexta opcion mostrará un menu que permitirá que el usuario vea la estadistica o los graficos de la informacion de las naves 
+                self.opciones_nave() #La sexta opcion mostrará un sub-menú que permitirá que el usuario vea la estadistica o los graficos de la informacion de las naves 
 
             elif menu=="7":
-                None
+                self.opciones_mision() #La séptima opción mostrará un sub-menú que permitirá que el usuario cree sus misiones, las modifique, guarde, visualice y las cargue
 
             elif menu=="8":
                 print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
@@ -260,6 +262,173 @@ Ingrese una opción:
             elif mini_menu=='3':
                 break
             else: print('Ingrese una opción válida')
+
+#Se crea una función para poder mostrar en un sub-menú lo que se puede hacer con las misiones
+    def opciones_mision(self):
+        while True:
+            sub_menu=input("""
+Ingrese la opción que desee: 
+1- Crea tus misiones
+2- Modificar misiones
+3- Visualiza tus misiones
+4- Guarda tus misiones
+5- Carga tus misiones
+6- Salir                          
+--->""")
+            if sub_menu=="1":
+                self.crear_misiones()
+            if sub_menu=="2":
+                self.modificar_misiones()
+            if sub_menu=="4":
+                self.visualizar_misiones()
+            if sub_menu=="3":
+                self.guardar_misiones()
+            if sub_menu=="5":
+                self.cargar_misiones()
+            if sub_menu=="6":
+                break
+            else:
+                print("Ingrese una opción válida")
+    
+    def crear_misiones(self):
+        if len(self.mision_obj)<=5: #Se coloca el límite de hasta 5 misiones
+            nombre_de_la_mision=input("Ingrese el nombre de la misión: ") #El usuario ingresa el nombre de su misión
+            planetas=[]
+            planeta_archivos=pd.read_csv("csv/planets.csv")
+            planetas.append(planeta_archivos["name"])
+            print(f"Lista de planetas a seleccionar:\n{planetas}") #Se muestra al usuario la lista de planetas que puede elegir para su misión
+            planeta_destino_mision=input("Ingrese el planeta destino de la misión: ")
+            nave=[]
+            nave_archivos=pd.read_csv("csv/starships.csv")
+            nave.append(nave_archivos["name"])
+            print(f"Lista de naves a seleccionar:\n{nave}") #Se muestran al usuario la lista de naves a seleccionar
+            nave_mision=input("Ingrese la nave de la misión: ")
+            armas_mision=[]
+            integrantes_mision=[]
+            armas=[]
+            armas_archivos=pd.read_csv("csv/weapons.csv")
+            armas.append(armas_archivos["name"])
+            print(f"Lista de armas a seleccionar:\n{armas}") #Se muestran al usuario la lista de armas que puede seleccionar
+            while len(armas_mision)<=7: #Se coloca el límite para que seleccionen y agreguen hasta 7 armas
+                arma=input("Ingrese el arma que desee utilizar: ")
+                if arma:
+                    armas_mision.append(arma)
+                else:
+                    break
+            integrantes=[]
+            integrantes_archivos=pd.read_csv("csv/characters.csv")
+            integrantes.append(integrantes_archivos["name"])
+            print(f"Lista de integrantes a seleccionar:\n{integrantes}") #Se muestra la lista de los integrantes a seleccionar
+            while len(integrantes_mision)<=7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
+                integrante=input("Ingrese los integrantes de su misión: ")
+                if integrante:
+                    integrantes_mision.append(integrante)
+                else:
+                    break
+            self.mision_obj.append(Mision(nombre_de_la_mision,planeta_destino_mision,nave_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
+            print("¡Su misión ha sido creada con éxito!")
+        else:
+            print("Solo se pueden definir hasta 5 misiones")
+
+    #Se crea una función que permita listar misiones para mostrar cuáles existen y así elegir una para modificarla
+    def listar_misiones(self):
+        if self.mision_obj:
+            for i, mision in enumerate(self.mision_obj):
+                print(f"{i}:{mision.nombre_mision}")
+        else:
+            print("No hay misiones definidas aún")
+
+    #Se crea una función que permita modificar las misiones que ya existen
+    def modificar_misiones(self):
+        self.listar_misiones()
+        seleccion=int(input("""
+Seleccion el número de la misión que desee modificar 
+--->"""))
+        if 0 <= seleccion < len(self.mision_obj):
+            mision_modificar=self.mision_obj[seleccion]
+            print(f"Modificando mision: {mision_modificar.nombre_mision}")
+
+            while True:
+                elegir=input("""
+Seleccione la característica de la misión que desee modificar:
+1- Modificar nombre de la misión
+2- Modificar planeta destino de la misión
+3- Modificar la nave de la misión
+4- Agregar arma
+5- Eliminar arma
+6- Agregar integrante
+7- Eliminar arma
+8- Salir                           
+--->""") 
+                if elegir =="1":
+                    mision_modificar.nombre_mision=input("Ingrese el nombre modificado de la misión: ")
+
+                elif elegir =="2":
+                    mision_modificar.planeta_destino=input("Ingrese el planeta modificado: ")
+
+                elif elegir =="3":
+                    mision_modificar.nave=input("Ingrese la nave modificada: ")
+
+                elif elegir =="4":
+                    nueva_arma=input("Ingrese la nueva arma que desea agregar: ")
+                    mision_modificar.agregar_arma(nueva_arma)
+
+                elif elegir =="5":
+                    arma_eliminada=input("Ingrese el arma que desea eliminar: ")
+                    mision_modificar.eliminar_arma(arma_eliminada)
+
+                elif elegir =="6":
+                    nuevo_integrante=input("Ingrese el nombre del integrante que desea eliminar: ")
+                    mision_modificar.agregar_integrante(nuevo_integrante)
+
+                elif elegir =="7":
+                    integrante_eliminado=input("Ingrese el nombre del integrante que desea eliminar: ")
+                    mision_modificar.eliminar_arma(integrante_eliminado)
+
+                elif elegir =="8":
+                    break
+
+                else:
+                    print("Ingrese una opción válida")
+        
+    #Se crea una función para agregar armas manteniendo el límite de hasta 7 armas
+    def agregar_arma(self,arma): 
+        if len(self.mision_obj.armas) < 7:
+            self.mision_obj.armas.append(arma)
+        else:
+            print("No se pueden agregar más de 7 armas")
+    
+    #Se crea una función para eliminar armas
+    def eliminar_arma(self,arma):
+        if arma in self.mision_obj.armas:
+            self.mision_obj.armas.remove(arma)
+        else:
+            print("El arma que quiere eliminar no está en la lista")
+
+    #Se crea una función para agregar integrantes manteniendo el límite de hasta 7 integrantes
+    def agregar_integrante(self,integrante):
+        if len(self.mision_obj.integrantes) < 7:
+            self.mision_obj.integrantes.append(integrante)
+        else:
+            print("No se pueden agregar más de 7 integrantes")
+    
+    #Se crea una función para eliminar integrantes
+    def eliminar_integrante(self, integrante):
+        if integrante in self.mision_obj.integrantes:
+            self.mision_obj.integrantes.remove(integrante)
+        else:
+            print("El integrante que quiere eliminar no está en la lista")
+
+    def visualizar_misiones(self):
+        None
+
+    def guardar_misiones(self):
+        None
+
+    def cargar_misiones(self):
+        None
+
+
 
     
             
