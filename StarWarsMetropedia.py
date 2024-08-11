@@ -1,6 +1,6 @@
 from Funciones import cargar_API, cargar_informacion
 from Pelicula import Pelicula
-from Mision import Mision
+from Misionprueba import Mision
 
 from Personaje import Personaje
 
