@@ -118,7 +118,7 @@ Ingrese una opción:
                 personaje_buscar=input("Ingrese el nombre del personaje que desee buscar: ")
                 contador=0
                 for personaje in self.personaje_obj:
-                    if personaje_buscar in personaje.nombre: #Se buscan los caracteres en los nombres de los personajes para buscar coincidencias
+                    if personaje_buscar.lower() in personaje.nombre.lower(): #Se buscan los caracteres en los nombres de los personajes para buscar coincidencias
                         personaje.mostrar_personaje() #Si se encuentran coincidencia se muestran los personajes
                         contador+=1
                 if contador==0:
@@ -291,7 +291,7 @@ Ingrese la opción que desee:
                 print("Ingrese una opción válida")
     
     def crear_misiones(self):
-        if len(self.mision_obj)<=5: #Se coloca el límite de hasta 5 misiones
+        if len(self.mision_obj)< 5: #Se coloca el límite de hasta 5 misiones
             nombre_de_la_mision=input("Ingrese el nombre de la misión: ") #El usuario ingresa el nombre de su misión
             planetas=[]
             planeta_archivos=pd.read_csv("csv/planets.csv")
@@ -309,7 +309,7 @@ Ingrese la opción que desee:
             armas_archivos=pd.read_csv("csv/weapons.csv")
             armas.append(armas_archivos["name"])
             print(f"Lista de armas a seleccionar:\n{armas}") #Se muestran al usuario la lista de armas que puede seleccionar
-            while len(armas_mision)<=7: #Se coloca el límite para que seleccionen y agreguen hasta 7 armas
+            while len(armas_mision)< 7: #Se coloca el límite para que seleccionen y agreguen hasta 7 armas
                 arma=input("Ingrese el arma que desee utilizar: ")
                 if arma:
                     armas_mision.append(arma)
@@ -319,7 +319,7 @@ Ingrese la opción que desee:
             integrantes_archivos=pd.read_csv("csv/characters.csv")
             integrantes.append(integrantes_archivos["name"])
             print(f"Lista de integrantes a seleccionar:\n{integrantes}") #Se muestra la lista de los integrantes a seleccionar
-            while len(integrantes_mision)<=7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
+            while len(integrantes_mision)< 7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
                 integrante=input("Ingrese los integrantes de su misión: ")
                 if integrante:
                     integrantes_mision.append(integrante)
@@ -393,29 +393,33 @@ Seleccione la característica de la misión que desee modificar:
         
     #Se crea una función para agregar armas manteniendo el límite de hasta 7 armas
     def agregar_arma(self,arma): 
-        if len(self.mision_obj.armas) < 7:
-            self.mision_obj.armas.append(arma)
-        else:
-            print("No se pueden agregar más de 7 armas")
+        for elemento in self.mision_obj:
+            if len(elemento.armas) < 7:
+                elemento.armas.append(arma)
+            else:
+                print("No se pueden agregar más de 7 armas")
     
     #Se crea una función para eliminar armas
     def eliminar_arma(self,arma):
-        if arma in self.mision_obj.armas:
-            self.mision_obj.armas.remove(arma)
+        for elemento in self.mision_obj:
+            if arma in elemento.armas:
+                elemento.armas.remove(arma)
         else:
             print("El arma que quiere eliminar no está en la lista")
 
     #Se crea una función para agregar integrantes manteniendo el límite de hasta 7 integrantes
     def agregar_integrante(self,integrante):
-        if len(self.mision_obj.integrantes) < 7:
-            self.mision_obj.integrantes.append(integrante)
+        for elemento in self.mision_obj:
+            if len(elemento.integrantes) < 7:
+                elemento.integrantes.append(integrante)
         else:
             print("No se pueden agregar más de 7 integrantes")
     
     #Se crea una función para eliminar integrantes
     def eliminar_integrante(self, integrante):
-        if integrante in self.mision_obj.integrantes:
-            self.mision_obj.integrantes.remove(integrante)
+        for elemento in self.mision_obj:
+            if integrante in elemento.integrantes:
+                elemento.integrantes.remove(integrante)
         else:
             print("El integrante que quiere eliminar no está en la lista")
 
