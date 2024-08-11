@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 class Mision:
     def __init__(self,nombre_mision, planeta_destino, nave, armas, integrantes):
         self.nombre_mision=nombre_mision
@@ -161,4 +162,14 @@ def contadores_lista(lista):
         print(f"{contador}-{elemento}")
         contador+=1
     print(lista)
-        
+
+def cargar_misiones(archivo):
+    try:
+        with open(archivo,"r") as info:
+            informacion_misiones= json.load(info)
+            mision_obj=[Mision(**m) for m in informacion_misiones]
+        print(f"Sus misiones han sido cargadas desde el archivo: {archivo}")
+    except FileNotFoundError: #Función de json por si el archivo no se encontró
+        print("El archivo que desea cargar no se ha encontrado")
+    except json.JSONDecodeError: #Por si hay errores la escritura del archivo
+        print("Hay un error al leer el archivo")
