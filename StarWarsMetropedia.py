@@ -423,8 +423,8 @@ Seleccione la característica de la misión que desee modificar:
                     print(f"Lista de planetas a seleccionar:\n{planetas}")
                     nuevo_planeta_de_la_mision=[]
                     while len(nuevo_planeta_de_la_mision)< 1:
-                        nuevo_planeta_mision=input("Ingrese el índice de la nave de la misión: ")
-                        if nuevo_planeta_de_la_mision.isnumeric() and int(nuevo_planeta_mision) < 60:
+                        nuevo_planeta_mision=input("Ingrese el índice del planeta de la misión: ")
+                        if nuevo_planeta_mision.isnumeric() and int(nuevo_planeta_mision) < 60:
                             for elemento_planeta in planetas:
                                 nuevo_planeta_de_la_mision.append(elemento_planeta[int(nuevo_planeta_de_la_mision)])
                         else:
