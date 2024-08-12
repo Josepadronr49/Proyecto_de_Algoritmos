@@ -12,3 +12,39 @@ class Mision:
         print(f"La nave de la misión es: {self.nave}")
         print(f"Las armas de la misión es: {self.armas}")
         print(f"Los integrantes de la misión es: {self.integrantes}")
+
+    #Se crea una función para agregar armas manteniendo el límite de hasta 7 armas
+    def agregar_arma(self,arma,lista_objeto,lista_armas): 
+        for elemento in lista_objeto:
+            if len(elemento.armas) < 7:
+                for elemento_arma in lista_armas:
+                        if arma.isnumeric() and int(arma) < 60:
+                            elemento.armas.append(elemento_arma[int(arma)])
+            else:
+                print("No se pueden agregar más de 7 armas")
+    
+     #Se crea una función para eliminar armas
+    def eliminar_arma(self,arma,lista_objeto):
+        for elemento in lista_objeto:
+            if int(arma) in len(elemento.armas):
+                elemento.armas.remove(elemento.armas[int(arma)])
+        else:
+            print("El arma que quiere eliminar no está en la lista")
+
+    #Se crea una función para agregar integrantes manteniendo el límite de hasta 7 integrantes
+    def agregar_integrante(self,integrante,lista_objeto,lista_elementos):
+        for elemento in lista_objeto:
+            if len(elemento.integrantes) < 7:
+                for elemento_integrante in lista_elementos:
+                        if integrante.isnumeric() and int(integrante) < 96:
+                            elemento.armas.append(elemento_integrante[int(integrante)])
+        else:
+            print("No se pueden agregar más de 7 integrantes")
+    
+    #Se crea una función para eliminar integrantes
+    def eliminar_integrante(self, integrante,lista_objeto):
+        for elemento in lista_objeto:
+            if int(integrante) in len(elemento.integrantes):
+                elemento.integrantes.remove(elemento.integrantes[int(integrante)])
+        else:
+            print("El integrante que quiere eliminar no está en la lista")
