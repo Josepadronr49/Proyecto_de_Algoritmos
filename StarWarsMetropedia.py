@@ -315,10 +315,11 @@ Ingrese la opción que desee:
             planetas.append(planeta_archivos["name"])
             print(f"Lista de planetas a seleccionar:\n{planetas}") #Se muestra al usuario la lista de planetas que puede elegir para su misión
             planeta_de_la_mision=[]
-            planeta_destino_mision=input("Ingrese el índice del planeta destino de la misión: ")
             while len(planeta_de_la_mision)< 1:
-                if planeta_destino_mision in planetas:
-                    planeta_de_la_mision.append(planetas[planeta_destino_mision])
+                planeta_destino_mision=input("Ingrese el índice del planeta destino de la misión: ")
+                if planeta_destino_mision.isnumeric() and int(planeta_destino_mision) < 13:
+                    for elemento in planetas:
+                        planeta_de_la_mision.append(elemento[int(planeta_destino_mision)])
                 else:
                     print("Ingrese un índice válido")
             nave=[]
@@ -326,10 +327,11 @@ Ingrese la opción que desee:
             nave.append(nave_archivos["name"])
             print(f"Lista de naves a seleccionar:\n{nave}") #Se muestran al usuario la lista de naves a seleccionar
             nave_de_la_mision=[]
-            nave_mision=input("Ingrese la nave de la misión: ")
             while len(nave_de_la_mision)< 1:
-                if nave_mision in nave:
-                    nave_de_la_mision.append(nave[nave_mision])
+                nave_mision=input("Ingrese el índice de la nave de la misión: ")
+                if nave_mision.isnumeric() and int(nave_mision) < 60:
+                    for elemento_nave in nave:
+                        nave_de_la_mision.append(elemento_nave[int(nave_mision)])
                 else:
                     print("Ingrese un índice válido")
             armas_mision=[]
@@ -339,9 +341,10 @@ Ingrese la opción que desee:
             armas.append(armas_archivos["name"])
             print(f"Lista de armas a seleccionar:\n{armas}") #Se muestran al usuario la lista de armas que puede seleccionar
             while len(armas_mision)< 7: #Se coloca el límite para que seleccionen y agreguen hasta 7 armas
-                arma=input("Ingrese el arma que desee utilizar: ")
-                if arma in armas:
-                    armas_mision.append(armas[arma])
+                arma=input("Ingrese el índice del arma que desee utilizar: ")
+                if arma.isnumeric() and int(arma) < 60:
+                    for elemento_arma in armas:
+                        armas_mision.append(elemento_arma(int[arma]))
                 else:
                     break
             integrantes=[]
@@ -349,12 +352,13 @@ Ingrese la opción que desee:
             integrantes.append(integrantes_archivos["name"])
             print(f"Lista de integrantes a seleccionar:\n{integrantes}") #Se muestra la lista de los integrantes a seleccionar
             while len(integrantes_mision)< 7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
-                integrante=input("Ingrese los integrantes de su misión: ")
-                if integrante in integrantes:
-                    integrantes_mision.append(integrantes[integrante])
+                integrante=input("Ingrese los índices de los integrantes de su misión: ")
+                if integrante.isnumeric() and int(integrante)< 96:
+                    for elemento_integrante in integrante:
+                        integrantes_mision.append(elemento_integrante[int(integrante)])
                 else:
                     break
-            self.mision_obj.append(Mision(nombre_de_la_mision,planeta_de_la_mision,nave_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
+            self.mision_obj.append(Mision(nombre_de_la_mision,planeta_de_la_mision,nave_de_la_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
             print("¡Su misión ha sido creada con éxito!")
         else:
             print("Solo se pueden definir hasta 5 misiones")
