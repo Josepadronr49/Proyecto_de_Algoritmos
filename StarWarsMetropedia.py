@@ -503,7 +503,7 @@ Seleccione la característica de la misión que desee modificar:
         for elemento in self.mision_obj:
             if len(elemento.integrantes) < 7:
                 for elemento_integrante in lista:
-                        if integrante.isnumeric() and int(integrante) < 60:
+                        if integrante.isnumeric() and int(integrante) < 96:
                             elemento.armas.append(elemento_integrante[int(integrante)])
         else:
             print("No se pueden agregar más de 7 integrantes")
