@@ -235,24 +235,25 @@ Ingrese una opción:
             else:  print("Ponga una opcion valida")          # Asegurar el funcionamiento del menu cuando se coloca opciones no validas.
     
     def crear_estadisticas_naves(self):
-        db_naves=pd.read_csv('csv/starships.csv',sep=",")
+        db_naves=pd.read_csv('csv/starships.csv',sep=",") #Extraer la informacion de la base de datos, indicando que se separa con una , los datos
 
-
-        db_naves['hyperdrive_rating']=pd.to_numeric(db_naves['hyperdrive_rating'],errors='coerce')
+        #Transformar los datos a numeros de las columnas relevantes, y si hay valores en blanco indicarlo para que no influya en el analisis de datos:
+        db_naves['hyperdrive_rating']=pd.to_numeric(db_naves['hyperdrive_rating'],errors='coerce') 
         db_naves['MGLT']=pd.to_numeric(db_naves['MGLT'],errors='coerce')
         db_naves['max_atmosphering_speed']=pd.to_numeric(db_naves['max_atmosphering_speed'],errors='coerce')
         db_naves['cost_in_credits']=pd.to_numeric(db_naves['cost_in_credits'],errors='coerce')
-
-        agrupado_por_clase=db_naves.groupby('starship_class')
+        
+        agrupado_por_clase=db_naves.groupby('starship_class') #Agrupar los datos por su clase de nave
+        #Realizar una matriz alterable para cada una de las columnas a analizar de la base de datos:
         stats_hyperdrive=pd.DataFrame()
         stats_costos=pd.DataFrame()
         stats_MGLT=pd.DataFrame()
         stats_max=pd.DataFrame()
-
-        stats_hyperdrive=agrupado_por_clase['hyperdrive_rating'].describe()
-        stats_hyperdrive['moda'] = agrupado_por_clase['hyperdrive_rating'].agg(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan)
-        print(f'Las estadisticas de hiperdrive:\n{stats_hyperdrive}')
-        print()
+        #Se repite el procedimiento de la primera columna en todas las demas
+        stats_hyperdrive=agrupado_por_clase['hyperdrive_rating'].describe() #La base de la matriz es una estadistica descriptiva dada por .describe()
+        stats_hyperdrive['moda'] = agrupado_por_clase['hyperdrive_rating'].agg(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan) #Anexar una columna que muestra la moda por cada clase de nave, empleando .agg, con lambda se consigue identificar que se busca la moda, iloc hace que se escoja el primero si hay varias modas. Sino devuelve NaN
+        print(f'Las estadisticas de hiperdrive:\n{stats_hyperdrive}') #imprime la matriz
+        print() #espaciado para mayor legibilidad
         stats_costos=agrupado_por_clase['cost_in_credits'].describe()
         stats_costos['moda'] = agrupado_por_clase['cost_in_credits'].agg(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan)
         print(f'Estadística de los costos:\n{stats_costos}')
@@ -263,7 +264,7 @@ Ingrese una opción:
         print()
         stats_max=agrupado_por_clase['max_atmosphering_speed'].describe()
         stats_max['moda'] = agrupado_por_clase['max_atmosphering_speed'].agg(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan)
-        print(f'Estadistica de Velocidad maxima en la atmosferica:\n{stats_max}')
+        print(f'Estadistica de Velocidad maxima en la atmósfera:\n{stats_max}')
         print()
     
     def opciones_nave(self):
@@ -296,7 +297,8 @@ Ingrese la opción que desee:
             if sub_menu=="4":
                 self.visualizar_misiones()
             if sub_menu=="3":
-                self.guardar_misiones()
+                self.guardar_misiones(archivo)
+                archivo=input('Ingrese el nombre del archivo que desea cargar: ')
             if sub_menu=="5":
                 archivo=input("Ingrese el nombre del archivo que desea cargar: ")
                 self.cargar_misiones(archivo)
@@ -439,10 +441,18 @@ Seleccione la característica de la misión que desee modificar:
             print("El integrante que quiere eliminar no está en la lista")
 
     def visualizar_misiones(self):
-        None
+        self.listar_misiones()
+        indice = int(input("Seleccione el índice de la misión a visualizar: "))
+        if 0 <= indice < len(self.mision_obj):
+            print("\nDetalles de la misión:")
+            print(self.mision_obj[indice])
+        else:
+            print("Índice de misión inválido.")
 
-    def guardar_misiones(self):
-        None
+    def guardar_misiones(self,archivo):
+        with open(archivo, 'w') as f:
+            json.dump([m.__dict__ for m in self.mision_obj], f, indent=4)
+        print("Misiones guardadas en", archivo)
 
     #Se crea una función para cargar las misiones
     def cargar_misiones(self,archivo):
