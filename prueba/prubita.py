@@ -11,7 +11,7 @@ print(planetas)
 
 while len(planeta_de_la_mision)< 1:
     planeta_destino_mision=(input("Ingrese el nombre del planeta destino de la misión: "))
-    if planeta_destino_mision.isnumeric() and int(planeta_destino_mision) < 60:
+    if planeta_destino_mision.isnumeric() and int(planeta_destino_mision) < 96:
         for elemento in planetas:
             planeta_de_la_mision.append(elemento[int(planeta_destino_mision)])
     else:

@@ -294,11 +294,11 @@ Ingrese la opción que desee:
                 self.crear_misiones()
             if sub_menu=="2":
                 self.modificar_misiones()
-            if sub_menu=="4":
-                self.visualizar_misiones()
             if sub_menu=="3":
-                self.guardar_misiones(archivo)
+                self.visualizar_misiones()
+            if sub_menu=="4":
                 archivo=input('Ingrese el nombre del archivo que desea cargar: ')
+                self.guardar_misiones(archivo)
             if sub_menu=="5":
                 archivo=input("Ingrese el nombre del archivo que desea cargar: ")
                 self.cargar_misiones(archivo)
@@ -344,20 +344,40 @@ Ingrese la opción que desee:
                 arma=input("Ingrese el índice del arma que desee utilizar: ")
                 if arma.isnumeric() and int(arma) < 60:
                     for elemento_arma in armas:
-                        armas_mision.append(elemento_arma(int[arma]))
+                        armas_mision.append(elemento_arma[int(arma)])
+                    ocurrencia_armas=input("""
+1-Agregar otra arma:
+2-Continuar construyendo la misión: 
+--->""")
+                    if ocurrencia_armas=="1":
+                        continue
+                    elif ocurrencia_armas=="2":
+                        break
+                    else:
+                        print("Ingrese una opción válida")
                 else:
-                    break
+                    print("Ingrese un índice válido")
             integrantes=[]
             integrantes_archivos=pd.read_csv("csv/characters.csv")
             integrantes.append(integrantes_archivos["name"])
             print(f"Lista de integrantes a seleccionar:\n{integrantes}") #Se muestra la lista de los integrantes a seleccionar
             while len(integrantes_mision)< 7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
                 integrante=input("Ingrese los índices de los integrantes de su misión: ")
-                if integrante.isnumeric() and int(integrante)< 96:
-                    for elemento_integrante in integrante:
+                if integrante.isnumeric() and int(integrante) < 96:
+                    for elemento_integrante in integrantes:
                         integrantes_mision.append(elemento_integrante[int(integrante)])
+                    ocurrencia=input("""
+1-Agregar otra arma:
+2-Continuar construyendo la misión: 
+--->""")
+                    if ocurrencia=="1":
+                        continue
+                    elif ocurrencia=="2":
+                        break
+                    else:
+                        print("Ingrese una opción válida")
                 else:
-                    break
+                    print("Ingrese un índice válido")
             self.mision_obj.append(Mision(nombre_de_la_mision,planeta_de_la_mision,nave_de_la_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
             print("¡Su misión ha sido creada con éxito!")
         else:
