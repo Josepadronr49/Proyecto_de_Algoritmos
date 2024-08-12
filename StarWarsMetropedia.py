@@ -455,9 +455,11 @@ Seleccione la característica de la misión que desee modificar:
                     mision_modificar.agregar_arma(nueva_arma,armas)
 
                 elif elegir =="5":
+                    contador=0
                     for elemento in self.mision_obj:
-                        print(elemento.armas)
-                    arma_eliminada=input("Ingrese el arma que desea eliminar: ")
+                        print(f"{contador}--{elemento.armas}")
+                        contador+=1
+                    arma_eliminada=input("Ingrese el número del arma que desea eliminar: ")
                     mision_modificar.eliminar_arma(arma_eliminada)
 
                 elif elegir =="6":
@@ -469,10 +471,12 @@ Seleccione la característica de la misión que desee modificar:
                     mision_modificar.agregar_integrante(nuevo_integrante,integrantes)
 
                 elif elegir =="7":
-                    for elemento_lista_integrante in self.mision_obj:
-                        print(elemento_lista_integrante.integrantes)
+                    contador=0
+                    for elemento in self.mision_obj:
+                        print(f"{contador}--{elemento.integrantes}")
+                        contador+=1
                     integrante_eliminado=input("Ingrese el nombre del integrante que desea eliminar: ")
-                    mision_modificar.eliminar_arma(integrante_eliminado)
+                    mision_modificar.eliminar_integrante(integrante_eliminado)
 
                 elif elegir =="8":
                     break
@@ -493,8 +497,8 @@ Seleccione la característica de la misión que desee modificar:
     #Se crea una función para eliminar armas
     def eliminar_arma(self,arma):
         for elemento in self.mision_obj:
-            if arma in elemento.armas:
-                elemento.armas.remove(arma)
+            if int(arma) in len(elemento.armas):
+                elemento.armas.remove(elemento.armas[int(arma)])
         else:
             print("El arma que quiere eliminar no está en la lista")
 
@@ -511,21 +515,23 @@ Seleccione la característica de la misión que desee modificar:
     #Se crea una función para eliminar integrantes
     def eliminar_integrante(self, integrante):
         for elemento in self.mision_obj:
-            if integrante in elemento.integrantes:
-                elemento.integrantes.remove(integrante)
+            if int(integrante) in len(elemento.integrantes):
+                elemento.integrantes.remove(elemento.integrantes[int(integrante)])
         else:
             print("El integrante que quiere eliminar no está en la lista")
 
+    #Se crea una función para visualizar las misiones
     def visualizar_misiones(self):
         self.listar_misiones()
         indice = int(input("Seleccione el índice de la misión a visualizar: "))
         if 0 <= indice < len(self.mision_obj):
             print("\nDetalles de la misión:")
-            for mision in self.mision_obj:
+            for mision in self.mision_obj[indice]:
                 mision.mostrar_mision()
         else:
             print("Índice de misión inválido.")
 
+    #Se crea una función con la que se puede guardar las misiones
     def guardar_misiones(self,archivo):
         with open(archivo, 'w') as f:
             json.dump([m.__dict__ for m in self.mision_obj], f, indent=4)
