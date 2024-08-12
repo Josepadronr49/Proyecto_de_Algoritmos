@@ -314,12 +314,24 @@ Ingrese la opción que desee:
             planeta_archivos=pd.read_csv("csv/planets.csv")
             planetas.append(planeta_archivos["name"])
             print(f"Lista de planetas a seleccionar:\n{planetas}") #Se muestra al usuario la lista de planetas que puede elegir para su misión
-            planeta_destino_mision=input("Ingrese el planeta destino de la misión: ")
+            planeta_de_la_mision=[]
+            planeta_destino_mision=input("Ingrese el índice del planeta destino de la misión: ")
+            while len(planeta_de_la_mision)< 1:
+                if planeta_destino_mision in planetas:
+                    planeta_de_la_mision.append(planetas[planeta_destino_mision])
+                else:
+                    print("Ingrese un índice válido")
             nave=[]
             nave_archivos=pd.read_csv("csv/starships.csv")
             nave.append(nave_archivos["name"])
             print(f"Lista de naves a seleccionar:\n{nave}") #Se muestran al usuario la lista de naves a seleccionar
+            nave_de_la_mision=[]
             nave_mision=input("Ingrese la nave de la misión: ")
+            while len(nave_de_la_mision)< 1:
+                if nave_mision in nave:
+                    nave_de_la_mision.append(nave[nave_mision])
+                else:
+                    print("Ingrese un índice válido")
             armas_mision=[]
             integrantes_mision=[]
             armas=[]
@@ -328,8 +340,8 @@ Ingrese la opción que desee:
             print(f"Lista de armas a seleccionar:\n{armas}") #Se muestran al usuario la lista de armas que puede seleccionar
             while len(armas_mision)< 7: #Se coloca el límite para que seleccionen y agreguen hasta 7 armas
                 arma=input("Ingrese el arma que desee utilizar: ")
-                if arma:
-                    armas_mision.append(arma)
+                if arma in armas:
+                    armas_mision.append(armas[arma])
                 else:
                     break
             integrantes=[]
@@ -338,11 +350,11 @@ Ingrese la opción que desee:
             print(f"Lista de integrantes a seleccionar:\n{integrantes}") #Se muestra la lista de los integrantes a seleccionar
             while len(integrantes_mision)< 7: #Se coloca un límite para que seleccionen y agreguen hasta 7 integrantes
                 integrante=input("Ingrese los integrantes de su misión: ")
-                if integrante:
-                    integrantes_mision.append(integrante)
+                if integrante in integrantes:
+                    integrantes_mision.append(integrantes[integrante])
                 else:
                     break
-            self.mision_obj.append(Mision(nombre_de_la_mision,planeta_destino_mision,nave_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
+            self.mision_obj.append(Mision(nombre_de_la_mision,planeta_de_la_mision,nave_mision,armas_mision,integrantes_mision)) #Se guarda la misión como objeto
             print("¡Su misión ha sido creada con éxito!")
         else:
             print("Solo se pueden definir hasta 5 misiones")
@@ -445,7 +457,8 @@ Seleccione la característica de la misión que desee modificar:
         indice = int(input("Seleccione el índice de la misión a visualizar: "))
         if 0 <= indice < len(self.mision_obj):
             print("\nDetalles de la misión:")
-            print(self.mision_obj[indice])
+            for mision in self.mision_obj:
+                mision.mostrar.mision()
         else:
             print("Índice de misión inválido.")
 

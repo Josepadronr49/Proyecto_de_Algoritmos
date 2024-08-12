@@ -5,3 +5,10 @@ class Mision:
         self.nave=nave
         self.armas=(armas)
         self.integrantes=(integrantes)
+
+    def mostra_mision(self):
+        print(f"El nombre de la misión es: {self.nombre_mision}")
+        print(f"El planeta de la misión es: {self.planeta_destino}")
+        print(f"La nave de la misión es: {self.nave}")
+        print(f"Las armas de la misión es: {self.armas}")
+        print(f"Los integrantes de la misión es: {self.integrantes}")
