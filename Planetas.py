@@ -8,12 +8,12 @@ class Planetas: #Transformacion de los datos a la clase planeta
         self.lista_episodio=lista_episodio
         self.lista_personajes=lista_personajes 
     def mostrar_planeta(self):
-        print(f'nombre es: {self.nombre}')
-        print(f'periodo de orbita: {self.periodo_de_orbita}')
-        print(f'periodo de rotacion: {self.periodo_de_rotacion}')
-        print(f'cantidad de habitantes: {self.cantidad_de_habitantes}')
-        print(f'clima: {self.clima}')
-        print(f'lista_episodios {self.lista_episodio}')
-        print(f'lista de personajes: {self.lista_personajes}')
+        print(f'a-Nombre es: {self.nombre}')
+        print(f'b-Periodo de orbita: {self.periodo_de_orbita}')
+        print(f'c-Periodo de rotacion: {self.periodo_de_rotacion}')
+        print(f'd-Cantidad de habitantes: {self.cantidad_de_habitantes}')
+        print(f'e-Clima: {self.clima}')
+        print(f'f-Lista_episodios {self.lista_episodio}')
+        print(f'g-Lista de personajes: {self.lista_personajes}')
         print()
         

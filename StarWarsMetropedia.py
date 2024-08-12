@@ -58,11 +58,11 @@ Ingrese una opción:
                 self.opciones_mision() #La séptima opción mostrará un sub-menú que permitirá que el usuario cree sus misiones, las modifique, guarde, visualice y las cargue
 
             elif menu=="8":
-                print("¡Hasta luego! \n¡Que la fuerza te acompañe!")
+                print("¡Hasta luego! \n¡Que la fuerza te acompañe!") #Con esta opción el usuario podrá salir del programa
                 break
 
             else:
-                print("Opción no válida. Por favor, vuelva a intentarlo.")
+                print("Opción no válida. Por favor, vuelva a intentarlo.") #Se coloca esta opción en caso de que algún usuario coloque una opción incorrecta en su selección
             
 
 
@@ -367,8 +367,8 @@ Ingrese la opción que desee:
                     for elemento_integrante in integrantes:
                         integrantes_mision.append(elemento_integrante[int(integrante)])
                     ocurrencia=input("""
-1-Agregar otra arma:
-2-Continuar construyendo la misión: 
+1-Agregar otro integrante:
+2-Finalizar construcción de la misión: 
 --->""")
                     if ocurrencia=="1":
                         continue
@@ -410,31 +410,67 @@ Seleccione la característica de la misión que desee modificar:
 4- Agregar arma
 5- Eliminar arma
 6- Agregar integrante
-7- Eliminar arma
+7- Eliminar integrante
 8- Salir                           
 --->""") 
                 if elegir =="1":
                     mision_modificar.nombre_mision=input("Ingrese el nombre modificado de la misión: ")
 
                 elif elegir =="2":
-                    mision_modificar.planeta_destino=input("Ingrese el planeta modificado: ")
+                    planetas=[]
+                    planeta_archivos=pd.read_csv("csv/planets.csv")
+                    planetas.append(planeta_archivos["name"])
+                    print(f"Lista de planetas a seleccionar:\n{planetas}")
+                    nuevo_planeta_de_la_mision=[]
+                    while len(nuevo_planeta_de_la_mision)< 1:
+                        nuevo_planeta_mision=input("Ingrese el índice de la nave de la misión: ")
+                        if nuevo_planeta_de_la_mision.isnumeric() and int(nuevo_planeta_mision) < 60:
+                            for elemento_planeta in planetas:
+                                nuevo_planeta_de_la_mision.append(elemento_planeta[int(nuevo_planeta_de_la_mision)])
+                        else:
+                            print("Ingrese un índice válido")
+                    mision_modificar.planeta_destino=nuevo_planeta_de_la_mision
 
                 elif elegir =="3":
-                    mision_modificar.nave=input("Ingrese la nave modificada: ")
+                    nave=[]
+                    nave_archivos=pd.read_csv("csv/starships.csv")
+                    nave.append(nave_archivos["name"])
+                    print(f"Lista de naves a seleccionar:\n{nave}")
+                    nueva_nave_de_la_mision=[]
+                    while len(nueva_nave_de_la_mision)< 1:
+                        nueva_nave_mision=input("Ingrese el índice de la nave de la misión: ")
+                        if nueva_nave_mision.isnumeric() and int(nueva_nave_mision) < 60:
+                            for elemento_nave in nave:
+                                nueva_nave_de_la_mision.append(elemento_nave[int(nueva_nave_mision)])
+                        else:
+                            print("Ingrese un índice válido")
+                    mision_modificar.nave=nueva_nave_de_la_mision
 
                 elif elegir =="4":
+                    armas=[]
+                    armas_archivos=pd.read_csv("csv/weapons.csv")
+                    armas.append(armas_archivos["name"])
+                    print(f"Lista de armas a seleccionar:\n{armas}")
                     nueva_arma=input("Ingrese la nueva arma que desea agregar: ")
-                    mision_modificar.agregar_arma(nueva_arma)
+                    mision_modificar.agregar_arma(nueva_arma,armas)
 
                 elif elegir =="5":
+                    for elemento in self.mision_obj:
+                        print(elemento.armas)
                     arma_eliminada=input("Ingrese el arma que desea eliminar: ")
                     mision_modificar.eliminar_arma(arma_eliminada)
 
                 elif elegir =="6":
+                    integrantes=[]
+                    integrantes_archivos=pd.read_csv("csv/characters.csv")
+                    integrantes.append(integrantes_archivos["name"])
+                    print(f"Lista de integrantes a seleccionar:\n{integrantes}")
                     nuevo_integrante=input("Ingrese el nombre del integrante que desea eliminar: ")
-                    mision_modificar.agregar_integrante(nuevo_integrante)
+                    mision_modificar.agregar_integrante(nuevo_integrante,integrantes)
 
                 elif elegir =="7":
+                    for elemento_lista_integrante in self.mision_obj:
+                        print(elemento_lista_integrante.integrantes)
                     integrante_eliminado=input("Ingrese el nombre del integrante que desea eliminar: ")
                     mision_modificar.eliminar_arma(integrante_eliminado)
 
@@ -445,10 +481,12 @@ Seleccione la característica de la misión que desee modificar:
                     print("Ingrese una opción válida")
         
     #Se crea una función para agregar armas manteniendo el límite de hasta 7 armas
-    def agregar_arma(self,arma): 
+    def agregar_arma(self,arma,lista): 
         for elemento in self.mision_obj:
             if len(elemento.armas) < 7:
-                elemento.armas.append(arma)
+                for elemento_arma in lista:
+                        if arma.isnumeric() and int(arma) < 60:
+                            elemento.armas.append(elemento_arma[int(arma)])
             else:
                 print("No se pueden agregar más de 7 armas")
     
@@ -461,10 +499,12 @@ Seleccione la característica de la misión que desee modificar:
             print("El arma que quiere eliminar no está en la lista")
 
     #Se crea una función para agregar integrantes manteniendo el límite de hasta 7 integrantes
-    def agregar_integrante(self,integrante):
+    def agregar_integrante(self,integrante,lista):
         for elemento in self.mision_obj:
             if len(elemento.integrantes) < 7:
-                elemento.integrantes.append(integrante)
+                for elemento_integrante in lista:
+                        if integrante.isnumeric() and int(integrante) < 60:
+                            elemento.armas.append(elemento_integrante[int(integrante)])
         else:
             print("No se pueden agregar más de 7 integrantes")
     
@@ -482,7 +522,7 @@ Seleccione la característica de la misión que desee modificar:
         if 0 <= indice < len(self.mision_obj):
             print("\nDetalles de la misión:")
             for mision in self.mision_obj:
-                mision.mostrar.mision()
+                mision.mostrar_mision()
         else:
             print("Índice de misión inválido.")
 

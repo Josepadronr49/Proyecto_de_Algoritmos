@@ -9,13 +9,13 @@ class Especies: #Transformacion de los datos a la clase de especie
         self.nombre_de_episodios=nombre_de_episodios
         
     def mostrar_especies(self):
-        print(f'nombre: {self.nombre}')
-        print(f'altura: {self.altura}')
-        print(f'clasificacion: {self.clasificacion}')
-        print(f'planeta: {self.planeta}')
-        print(f'lengua materna: {self.lengua_materna}')
-        print(f'nombre de los personajes: {self.nombre_de_los_personajes_de_especie}')
-        print(f'nombre de los episodios: {self.nombre_de_episodios}')
+        print(f'a-Nombre: {self.nombre}')
+        print(f'b-Altura: {self.altura}')
+        print(f'c-Clasificacion: {self.clasificacion}')
+        print(f'd-Planeta: {self.planeta}')
+        print(f'e-Lengua materna: {self.lengua_materna}')
+        print(f'f-Nombre de los personajes: {self.nombre_de_los_personajes_de_especie}')
+        print(f'g-Nombre de los episodios: {self.nombre_de_episodios}')
         print()
         
         
