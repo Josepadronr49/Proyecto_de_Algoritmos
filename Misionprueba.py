@@ -29,32 +29,16 @@ while True:
     if eleccion=="1":
         if len(mision_obj)<=5:
             nombre_de_la_mision=input("Ingrese el nombre de la misión: ")
-            planetas=[]
-            planeta_archivos=pd.read_csv("csv/planets.csv")
-            planetas.append(planeta_archivos["name"])
-            planetas.contadores_lista(planetas)
             planeta_destino_mision=input("Ingrese el planeta destino de la misión: ")
-            nave=[]
-            nave_archivos=pd.read_csv("csv/starships.csv")
-            nave.append(nave_archivos["name"])
-            nave.contadores_lista(nave)
             nave_mision=input("Ingrese la nave de la misión: ")
             armas_mision=[]
             integrantes_mision=[]
-            armas=[]
-            armas_archivos=pd.read_csv("csv/weapons.csv")
-            armas.append(armas_archivos["name"])
-            armas.contadores_lista(armas)
             while len(armas_mision)<=7:
                 arma=input("Ingrese el arma que desee utilizar: ")
                 if arma:
                     armas_mision.append(arma)
                 else:
                     break
-            integrantes=[]
-            integrantes_archivos=pd.read_csv("csv/characters.csv")
-            integrantes.append(integrantes_archivos["name"])
-            integrantes.contadores_lista(integrantes)
             while len(integrantes_mision)<=7:
                 integrante=input("Ingrese los integrantes de su misión: ")
                 if integrante:
@@ -63,6 +47,13 @@ while True:
                     break
             mision_obj.append(Mision(nombre_de_la_mision,planeta_destino_mision,nave_mision,armas_mision,integrantes_mision))
             print("¡Su misión ha sido creada con éxito!")
+            for elemento in mision_obj:
+                print(elemento.nombre_mision)
+                print(elemento.planeta_destino)
+                print(elemento.nave)
+                print(elemento.armas)
+                print(elemento.integrantes)
+            
         else:
             print("Solo se pueden definir hasta 5 misiones")
 
@@ -122,11 +113,29 @@ Seleccione la característica de la misión que desee modificar:
             print("Ingrese una opción válida")
 
     elif eleccion=="3":
-        None
+        lista_misiones()
+        indice=int(input("Seleccione el índice de la misión a visualizar "))
+        if 0<=indice< len(mision_obj):
+            print("Detalle de la misión: ")
+            print(mision_obj[indice])
+        else:
+            print("Indice de misión inválido")
     elif eleccion=="4":
-        None
+        with open (archivo,"w") as f:
+            json.dump([m.__dict__ for m in mision_obj], f, indent=4)
+        print(f"Misiones guardadas en: {archivo}")
+
     elif eleccion=="5":
-        None
+        archivo=input("Ingrese el nombre del archivo")
+        try:
+            with open(archivo,"r") as info:
+                informacion_misiones= json.load(info)
+                mision_obj=[Mision(**m) for m in informacion_misiones]
+            print(f"Sus misiones han sido cargadas desde el archivo: {archivo}")
+        except FileNotFoundError: #Función de json por si el archivo no se encontró
+            print("El archivo que desea cargar no se ha encontrado")
+        except json.JSONDecodeError: #Por si hay errores la escritura del archivo
+            print("Hay un error al leer el archivo")
     elif eleccion=="6":
         break
     else:
@@ -173,3 +182,18 @@ def cargar_misiones(archivo):
         print("El archivo que desea cargar no se ha encontrado")
     except json.JSONDecodeError: #Por si hay errores la escritura del archivo
         print("Hay un error al leer el archivo")
+
+def visualizar_misiones():
+    lista_misiones()
+    indice=int(input("Seleccione el índice de la misión a visualizar "))
+    if 0<=indice< len(mision_obj):
+        print("Detalle de la misión: ")
+        print(mision_obj[indice])
+    else:
+        print("Indice de misión inválido")
+
+def guardar_misiones(archivo):
+    with open (archivo,"w") as f:
+        json.dump([m.__dict__ for m in mision_obj], f, indent=4)
+    print(f"Misiones guardadas en: {archivo}")
+
