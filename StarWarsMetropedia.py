@@ -292,17 +292,17 @@ Ingrese la opción que desee:
 --->""")
             if sub_menu=="1":
                 self.crear_misiones()
-            if sub_menu=="2":
+            elif sub_menu=="2":
                 self.modificar_misiones()
-            if sub_menu=="3":
+            elif sub_menu=="3":
                 self.visualizar_misiones()
-            if sub_menu=="4":
+            elif sub_menu=="4":
                 archivo=input('Ingrese el nombre del archivo que desea cargar: ')
                 self.guardar_misiones(archivo)
-            if sub_menu=="5":
+            elif sub_menu=="5":
                 archivo=input("Ingrese el nombre del archivo que desea cargar: ")
                 self.cargar_misiones(archivo)
-            if sub_menu=="6":
+            elif sub_menu=="6":
                 break
             else:
                 print("Ingrese una opción válida")
@@ -452,7 +452,7 @@ Seleccione la característica de la misión que desee modificar:
                     armas.append(armas_archivos["name"])
                     print(f"Lista de armas a seleccionar:\n{armas}")
                     nueva_arma=input("Ingrese la nueva arma que desea agregar: ")
-                    mision_modificar.agregar_arma(nueva_arma,self.mision_obj,armas)
+                    mision_modificar.agregar_arma(int(nueva_arma),armas)
 
                 elif elegir =="5":
                     contador=0
@@ -461,15 +461,15 @@ Seleccione la característica de la misión que desee modificar:
                             print(f"{contador}--{arma}")
                             contador+=1
                     arma_eliminada=input("Ingrese el número del arma que desea eliminar: ")
-                    mision_modificar.eliminar_arma(int(arma_eliminada),self.mision_obj)
+                    mision_modificar.eliminar_arma(int(arma_eliminada))
 
                 elif elegir =="6":
                     integrantes=[]
                     integrantes_archivos=pd.read_csv("csv/characters.csv")
                     integrantes.append(integrantes_archivos["name"])
                     print(f"Lista de integrantes a seleccionar:\n{integrantes}")
-                    nuevo_integrante=input("Ingrese el nombre del integrante que desea eliminar: ")
-                    mision_modificar.agregar_integrante(nuevo_integrante,self.mision_obj,integrantes)
+                    nuevo_integrante=input("Ingrese el número del integrante que desea eliminar: ")
+                    mision_modificar.agregar_integrante(int(nuevo_integrante),integrantes)
 
                 elif elegir =="7":
                     contador=0
@@ -477,8 +477,8 @@ Seleccione la característica de la misión que desee modificar:
                         for integrante in list(elemento.integrantes):
                             print(f"{contador}--{integrante}")
                             contador+=1
-                    integrante_eliminado=input("Ingrese el nombre del integrante que desea eliminar: ")
-                    mision_modificar.eliminar_integrante(int(integrante_eliminado), self.mision_obj)
+                    integrante_eliminado=input("Ingrese el número del integrante que desea eliminar: ")
+                    mision_modificar.eliminar_integrante(int(integrante_eliminado))
 
                 elif elegir =="8":
                     break
