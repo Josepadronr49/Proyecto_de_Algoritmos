@@ -426,7 +426,7 @@ Seleccione la característica de la misión que desee modificar:
                         nuevo_planeta_mision=input("Ingrese el índice del planeta de la misión: ")
                         if nuevo_planeta_mision.isnumeric() and int(nuevo_planeta_mision) < 60:
                             for elemento_planeta in planetas:
-                                nuevo_planeta_de_la_mision.append(elemento_planeta[int(nuevo_planeta_de_la_mision)])
+                                nuevo_planeta_de_la_mision.append(elemento_planeta[int(nuevo_planeta_mision)])
                         else:
                             print("Ingrese un índice válido")
                     mision_modificar.planeta_destino=nuevo_planeta_de_la_mision
@@ -457,10 +457,11 @@ Seleccione la característica de la misión que desee modificar:
                 elif elegir =="5":
                     contador=0
                     for elemento in self.mision_obj:
-                        print(f"{contador}--{elemento.armas}")
-                        contador+=1
+                        for arma in list(elemento.armas):
+                            print(f"{contador}--{arma}")
+                            contador+=1
                     arma_eliminada=input("Ingrese el número del arma que desea eliminar: ")
-                    mision_modificar.eliminar_arma(arma_eliminada,self.mision_obj)
+                    mision_modificar.eliminar_arma(int(arma_eliminada),self.mision_obj)
 
                 elif elegir =="6":
                     integrantes=[]
@@ -473,10 +474,11 @@ Seleccione la característica de la misión que desee modificar:
                 elif elegir =="7":
                     contador=0
                     for elemento in self.mision_obj:
-                        print(f"{contador}--{elemento.integrantes}")
-                        contador+=1
+                        for integrante in list(elemento.integrantes):
+                            print(f"{contador}--{integrante}")
+                            contador+=1
                     integrante_eliminado=input("Ingrese el nombre del integrante que desea eliminar: ")
-                    mision_modificar.eliminar_integrante(integrante_eliminado, self.mision_obj)
+                    mision_modificar.eliminar_integrante(int(integrante_eliminado), self.mision_obj)
 
                 elif elegir =="8":
                     break
@@ -484,42 +486,6 @@ Seleccione la característica de la misión que desee modificar:
                 else:
                     print("Ingrese una opción válida")
         
-    #Se crea una función para agregar armas manteniendo el límite de hasta 7 armas
-    """def agregar_arma(self,arma,lista): 
-        for elemento in self.mision_obj:
-            if len(elemento.armas) < 7:
-                for elemento_arma in lista:
-                        if arma.isnumeric() and int(arma) < 60:
-                            elemento.armas.append(elemento_arma[int(arma)])
-            else:
-                print("No se pueden agregar más de 7 armas")"""
-    
-    #Se crea una función para eliminar armas
-    """def eliminar_arma(self,arma):
-        for elemento in self.mision_obj:
-            if int(arma) in len(elemento.armas):
-                elemento.armas.remove(elemento.armas[int(arma)])
-        else:
-            print("El arma que quiere eliminar no está en la lista")"""
-
-    #Se crea una función para agregar integrantes manteniendo el límite de hasta 7 integrantes
-    """def agregar_integrante(self,integrante,lista):
-        for elemento in self.mision_obj:
-            if len(elemento.integrantes) < 7:
-                for elemento_integrante in lista:
-                        if integrante.isnumeric() and int(integrante) < 96:
-                            elemento.armas.append(elemento_integrante[int(integrante)])
-        else:
-            print("No se pueden agregar más de 7 integrantes")"""
-    
-    #Se crea una función para eliminar integrantes
-    """def eliminar_integrante(self, integrante):
-        for elemento in self.mision_obj:
-            if int(integrante) in len(elemento.integrantes):
-                elemento.integrantes.remove(elemento.integrantes[int(integrante)])
-        else:
-            print("El integrante que quiere eliminar no está en la lista")"""
-
     #Se crea una función para visualizar las misiones
     def visualizar_misiones(self):
         self.listar_misiones()
