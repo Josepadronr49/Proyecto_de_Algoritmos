@@ -468,7 +468,7 @@ Seleccione la característica de la misión que desee modificar:
                     integrantes_archivos=pd.read_csv("csv/characters.csv")
                     integrantes.append(integrantes_archivos["name"])
                     print(f"Lista de integrantes a seleccionar:\n{integrantes}")
-                    nuevo_integrante=input("Ingrese el número del integrante que desea eliminar: ")
+                    nuevo_integrante=input("Ingrese el número del integrante que desea agregar: ")
                     mision_modificar.agregar_integrante(int(nuevo_integrante),integrantes)
 
                 elif elegir =="7":
@@ -489,10 +489,10 @@ Seleccione la característica de la misión que desee modificar:
     #Se crea una función para visualizar las misiones
     def visualizar_misiones(self):
         self.listar_misiones()
-        indice = int(input("Seleccione el índice de la misión a visualizar: "))
-        if 0 <= indice < len(self.mision_obj):
+        indice = input("Seleccione el índice de la misión a visualizar: ")
+        if indice.isnumeric() and 0 <= int(indice) < len(self.mision_obj):
             print("\nDetalles de la misión:")
-            print(self.mision_obj[indice].mostrar_mision())
+            print(self.mision_obj[int(indice)].mostrar_mision())
         else:
             print("Índice de misión inválido.")
 
